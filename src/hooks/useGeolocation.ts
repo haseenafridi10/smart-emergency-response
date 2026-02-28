@@ -1,6 +1,6 @@
 // src/hooks/useGeolocation.ts
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 export interface GeolocationState {
   latitude: number | null;
@@ -19,38 +19,43 @@ export function useGeolocation(enableHighAccuracy = true, timeout = 10000) {
     loading: true,
   });
 
+  // Memoize callbacks to avoid re-creating them on every render
+  const onSuccess = useCallback((position: GeolocationPosition) => {
+    setState({
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude,
+      accuracy: position.coords.accuracy,
+      error: null,
+      loading: false,
+    });
+  }, []);
+
+  const onError = useCallback((error: GeolocationPositionError) => {
+    const messages: Record<number, string> = {
+      1: "Location permission denied. Please enable location access in your browser settings.",
+      2: "Location position unavailable. Check your GPS/connection.",
+      3: "Location request timed out. Please try again.",
+    };
+    setState((prev) => ({
+      ...prev,
+      error: messages[error.code] || "Unknown location error occurred",
+      loading: false,
+    }));
+  }, []);
+
   useEffect(() => {
+    // Check for geolocation support BEFORE setting up watcher
     if (!navigator.geolocation) {
-      setState((prev) => ({ 
-        ...prev, 
-        error: "Geolocation is not supported by your browser", 
-        loading: false 
-      }));
+      // Use a microtask to avoid synchronous setState in effect body
+      Promise.resolve().then(() => {
+        setState((prev) => ({ 
+          ...prev, 
+          error: "Geolocation is not supported by your browser", 
+          loading: false 
+        }));
+      });
       return;
     }
-
-    const onSuccess = (position: GeolocationPosition) => {
-      setState({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-        accuracy: position.coords.accuracy,
-        error: null,
-        loading: false,
-      });
-    };
-
-    const onError = (error: GeolocationPositionError) => {
-      const messages: Record<number, string> = {
-        1: "Location permission denied. Please enable location access in your browser settings.",
-        2: "Location position unavailable. Check your GPS/connection.",
-        3: "Location request timed out. Please try again.",
-      };
-      setState((prev) => ({
-        ...prev,
-        error: messages[error.code] || "Unknown location error occurred",
-        loading: false,
-      }));
-    };
 
     const watcher = navigator.geolocation.watchPosition(
       onSuccess,
@@ -58,10 +63,14 @@ export function useGeolocation(enableHighAccuracy = true, timeout = 10000) {
       { enableHighAccuracy, timeout, maximumAge: 0 }
     );
 
-    return () => navigator.geolocation.clearWatch(watcher);
-  }, [enableHighAccuracy, timeout]);
+    // Cleanup watcher on unmount
+    return () => {
+      navigator.geolocation.clearWatch(watcher);
+    };
+  }, [enableHighAccuracy, timeout, onSuccess, onError]);
 
-  const setLocation = (lat: number, lng: number) => {
+  // Manual location setter for fallback input
+  const setLocation = useCallback((lat: number, lng: number) => {
     setState({
       latitude: lat,
       longitude: lng,
@@ -69,7 +78,7 @@ export function useGeolocation(enableHighAccuracy = true, timeout = 10000) {
       error: null,
       loading: false,
     });
-  };
+  }, []);
 
   return { ...state, setLocation };
 }

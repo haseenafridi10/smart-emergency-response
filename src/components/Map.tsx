@@ -18,6 +18,7 @@ export default function Map({ requests, userLocation, showUserMarker = true }: M
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY || "",
     libraries,
   });
+  console.log("Map component rendered with requests:", requests);
 
   // State to control which InfoWindow is open
   const [selectedRequest, setSelectedRequest] = useState<string | null>(null);
