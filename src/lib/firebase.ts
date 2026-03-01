@@ -5,17 +5,17 @@ import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
 
-apiKey: "AIzaSyBNk3iNAKWVYs0lUQ-ddITw9hnpdbfD6Fo",
+apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
 
-authDomain: "community-emergency.firebaseapp.com",
+authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
 
-projectId: "community-emergency",
+projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
 
-storageBucket: "community-emergency.firebasestorage.app",
+storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
 
-messagingSenderId: "468181280242",
+messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
 
-appId: "1:468181280242:web:d7a754c400c73698a3f76b"
+appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 
 };
 
