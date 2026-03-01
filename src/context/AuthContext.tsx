@@ -68,28 +68,33 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     return () => unsubscribe();
   }, []);
 
-  const login = async () => {
-    try {
-      const provider = new GoogleAuthProvider();
-      await signInWithPopup(auth, provider);
-      toast.success("Welcome back!");
-    } catch (error: any) {
-      // Handle specific Firebase auth errors gracefully
-      if (error.code === 'auth/cancelled-popup-request') {
-        // User closed popup - not a real error, just inform them
+ const login = async () => {
+  try {
+    const provider = new GoogleAuthProvider();
+    await signInWithPopup(auth, provider);
+    toast.success("Welcome back!");
+  } catch (error: unknown) {
+    const authError = error as AuthError;
+
+    switch (authError.code) {
+      case 'auth/cancelled-popup-request':
         toast.error("Sign-in cancelled");
-      } else if (error.code === 'auth/popup-blocked') {
+        break;
+      case 'auth/popup-blocked':
         toast.error("Popup blocked. Please allow popups for this site.");
-      } else if (error.code === 'auth/network-request-failed') {
+        break;
+      case 'auth/network-request-failed':
         toast.error("Network error. Please check your connection.");
-      } else if (error.code === 'auth/unauthorized-domain') {
+        break;
+      case 'auth/unauthorized-domain':
         toast.error("This domain is not authorized. Contact support.");
-      } else {
-        console.error("Login error:", error);
+        break;
+      default:
+        console.error("Login error:", authError);
         toast.error("Sign-in failed. Please try again.");
-      }
     }
-  };
+  }
+};
 
   const logout = async () => {
     try {

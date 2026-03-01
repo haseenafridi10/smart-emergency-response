@@ -6,7 +6,7 @@ import { RequestData } from "@/types";
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 
-const libraries = ["places"] as const;
+const libraries: ("places")[] = ["places"];
 
 interface MapProps {
   requests: RequestData[];
@@ -17,7 +17,7 @@ interface MapProps {
 export default function Map({ requests, userLocation, showUserMarker = true }: MapProps) {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY || "",
-    libraries: libraries as any,
+    libraries: libraries,
   });
 
   const [selectedRequest, setSelectedRequest] = useState<string | null>(null);
