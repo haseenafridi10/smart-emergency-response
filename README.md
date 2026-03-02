@@ -1,157 +1,115 @@
 🚑 Smart Emergency Response Platform
 
-A web-based emergency response platform powered by the Google Maps API and Firebase that enables users to submit categorized emergency requests while allowing volunteers to respond based on urgency and proximity.
+> A real-time, location-aware emergency coordination platform that connects people in need with nearby volunteers.
 
-The system features smart prioritization, real-time updates, and a basic analytics dashboard to improve coordination and response efficiency.
+---
 
-🌍 Overview
+🏆 Hackathon Project
 
-This platform connects people in need with nearby volunteers through:
+Built to improve emergency response time through smart prioritization, real-time updates, and distance-based volunteer coordination.
 
-📍 Location-based request mapping
+---
 
-⚡ Real-time database updates
+🌍 Problem
 
-🔎 Smart filtering & prioritization
+During emergencies, response coordination is often slow and disorganized. There is no centralized system to prioritize urgent cases and match them with nearby volunteers.
 
-📊 Basic analytics dashboard
+---
+💡 Solution
 
-It is designed to provide faster emergency response and better visibility of critical cases.
+A web-based platform powered by Google Maps and Firebase that:
 
-✨ Features
-🔹 Core Features
+- Allows users to submit categorized emergency requests
+- Prioritizes requests based on urgency
+- Sorts volunteers based on proximity
+- Updates request status in real-time
+- Displays live analytics for better decision-making
 
-Category-based requests:
+---
 
-Medical
+✨ Key Features
 
-Food
+🚨 Emergency Requests
+- Category-based (Medical, Food, Shelter)
+- Priority tagging (High / Medium / Low)
+- Real-time status updates (Accepted / In Progress / Completed)
 
-Shelter
+📍 Smart Location Matching
+- Live Google Maps integration
+- Distance-based sorting (nearest volunteer first)
+- Real-time request markers
 
-Priority tagging:
+📊 Analytics Dashboard
+- Active cases count
+- Resolved cases count
+- Graph visualization
 
-High
+---
 
-Medium
+🛠 Tech Stack
 
-Low
+Frontend:
+- Next.js
+- React
+- Tailwind CSS
+- Google Maps JavaScript API
 
-Filter requests by urgency
+Backend:
+- Firebase Authentication
+- Firebase Firestore (Real-time Database)
 
-Real-time status updates:
+Analytics:
+- Recharts
 
-Accepted
+Deployment:
+- Vercel / Firebase Hosting
 
-In Progress
+---
 
-Completed
+⚙️ How to Run Locally
 
-Distance-based sorting (nearest volunteer first)
+1️⃣ Clone Repository
+git clone https://github.com/your-username/your-repo-name.git  
+cd your-repo-name  
 
-Live map visualization
-
-📊 Dashboard Features
-
-Active cases count
-
-Resolved cases count
-
-Graph-based visualization of requests
-
-🛠 Technology Stack
-🎨 Frontend
-
-Next.js
-
-React
-
-Tailwind CSS
-
-Google Maps JavaScript API
-
-🔥 Backend & Database
-
-Firebase Authentication
-
-Cloud Firestore
-
-📈 Analytics
-
-Recharts
-
-🚀 Deployment
-
-Firebase Hosting
-
-Vercel
-
-⚙️ How It Works
-
-Users submit emergency requests with:
-
-Category
-
-Priority level
-
-Location (via map)
-
-Requests are stored in Firestore in real-time.
-
-Volunteers view nearby requests sorted by urgency and distance.
-
-Volunteers update the request status as they respond.
-
-Dashboard updates automatically with real-time analytics.
-
-📂 Project Structure (Example)
-/app
-/components
-/context
-/lib
-/types
-/public
-🚀 Getting Started
-1️⃣ Clone the Repository
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
 2️⃣ Install Dependencies
-npm install
-3️⃣ Configure Environment Variables
+npm install  
 
-Create a .env.local file and add:
+3️⃣ Add Environment Variables
 
-NEXT_PUBLIC_FIREBASE_API_KEY=
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
-NEXT_PUBLIC_FIREBASE_APP_ID=
-NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=
+Create `.env.local`:
+
+NEXT_PUBLIC_FIREBASE_API_KEY=  
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=  
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=  
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=  
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=  
+NEXT_PUBLIC_FIREBASE_APP_ID=  
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=  
+
 4️⃣ Run Development Server
-npm run dev
+npm run dev  
+
+---
+
 🎯 Expected Impact
 
-🚑 Faster emergency response time
+- Faster emergency response
+- Better volunteer coordination
+- Improved visibility of high-risk cases
+- Real-time tracking & transparency
 
-🤝 Efficient volunteer coordination
+---
 
-📊 Improved visibility of high-risk cases
+👨‍💻 Team / Author
 
-📍 Location-aware assistance
+Haseen Afridi
 
-🔮 Future Improvements
+---
 
-Push notifications
+🚀 Future Improvements
 
-Admin moderation panel
-
-Heatmap visualization
-
-AI-based priority prediction
-
-Mobile app version
-
-📜 License
-
-This project is developed for educational and practical implementation purposes.
+- Push notifications
+- AI-based urgency prediction
+- Heatmap visualization
+- Mobile application version
